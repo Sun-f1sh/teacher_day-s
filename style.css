@@ -1,981 +1,795 @@
-/* ==========================================================================
-   TEACHERS' DAY WEBSITE — STYLE
-   ========================================================================== */
+/* ============================================================
+   TEACHERS' DAY WEBSITE
+   Personalized Teacher Messages
+   Made with ❤️ by Nirvit
+============================================================ */
 
-/* ==========================================================================
-   Tokens
-   ========================================================================== */
 
-:root {
-  --paper: #f6efe2;
-  --paper-deep: #efe4d0;
-  --ink: #3a2c22;
-  --ink-soft: #6b5c4c;
-  --rose: #b96a5e;
-  --gold: #c08a3b;
-  --chalk-green: #445340;
+/* ============================================================
+   GET HTML ELEMENTS
+============================================================ */
 
-  --font-display: "Fraunces", Georgia, serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+const openingScreen = document.getElementById("screen-opening");
+const nameScreen = document.getElementById("screen-name");
+const greetingScreen = document.getElementById("screen-greeting");
 
-  --space-1: 0.5rem;
-  --space-2: 1rem;
-  --space-3: 1.75rem;
-  --space-4: 2.5rem;
+const beginBtn = document.getElementById("beginBtn");
+const replayBtn = document.getElementById("replayBtn");
 
-  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+const nameForm = document.getElementById("nameForm");
+const teacherNameInput = document.getElementById("teacherName");
 
-  --dur-med: 0.7s;
-  --dur-slow: 1.1s;
+const greetingName = document.getElementById("greetingName");
+const greetingBody = document.getElementById("greetingBody");
+
+const nameError = document.getElementById("nameError");
+
+const petalField = document.getElementById("petalField");
+const musicToggle = document.getElementById("musicToggle");
+
+
+/* ============================================================
+   SAFETY CHECK
+============================================================ */
+
+console.log("Teachers' Day website JavaScript loaded.");
+
+
+/* ============================================================
+   PERSONALIZED TEACHER MESSAGES
+============================================================ */
+
+const teacherMessages = {
+
+  /* --------------------------------------------------------
+     NIRMALA MA'AM
+  -------------------------------------------------------- */
+
+  nirmala: `
+    <p>
+      Happy Teachers’ Day, Nirmala Ma’am! 🌷✨
+    </p>
+
+    <p>
+      President of IIC, Dean of the Research & Development
+      Cell, AI Club Coordinator, E-Cell Coordinator, NSS
+      Faculty… and somehow still one of the most approachable
+      and friendly people in college! 😄
+    </p>
+
+    <p>
+      Despite being the HOD of the AI & ML Department and
+      handling so many responsibilities, you’ve always made
+      it incredibly easy for us to walk in, talk to you,
+      share ideas, ask for advice, or sometimes just have a
+      good conversation.
+    </p>
+
+    <p>
+      What makes it even more special are those post-college-
+      hour chats and all the times you’ve generously let us
+      use your cabin for our committee work. That little
+      space has somehow become one of our favourite places
+      to plan, discuss, create, and occasionally panic before
+      deadlines! 😂
+    </p>
+
+    <p>
+      Thank you for trusting us, encouraging our ideas, and
+      always making us feel heard. Your support has played a
+      much bigger role in our college journey than you
+      probably realise.
+    </p>
+
+    <p>
+      Wishing you a very Happy Teachers’ Day, Ma’am! ❤️
+    </p>
+
+    <p>
+      Thank you for being not just a mentor, but someone we
+      can genuinely look up to and talk to. 🌸
+    </p>
+  `,
+
+
+  /* --------------------------------------------------------
+     NALINI MISS
+  -------------------------------------------------------- */
+
+  nalini: `
+    <p>
+      Happy Teachers’ Day, Nalini Miss! ❤️🌷
+    </p>
+
+    <p>
+      Some teachers teach you a subject, but some become a part
+      of your life long after the classroom is gone. You are one
+      of those teachers for me.
+    </p>
+
+    <p>
+      You were my Hindi teacher in 10th, but what I remember most
+      isn’t just the lessons from the books—it’s the care,
+      guidance, and support you’ve continued to give me even till
+      today. The fact that you still look out for me and ask
+      about how I’m doing means more than I can probably put into
+      words.
+    </p>
+
+    <p>
+      10th may have ended years ago, but the connection and the
+      lessons you gave me never really did. I’m genuinely
+      grateful that I got to have a teacher like you at such an
+      important time in my life.
+    </p>
+
+    <p>
+      Thank you for always being there, Miss. You’ll always hold
+      a very special place in my journey. ❤️
+    </p>
+
+    <p>
+      Wishing you a very Happy Teachers’ Day! 🌸✨
+    </p>
+  `,
+
+
+  /* --------------------------------------------------------
+     SAUMYA MA'AM
+  -------------------------------------------------------- */
+
+  saumya: `
+    <p>
+      Happy Teachers’ Day, Saumya Ma’am! 🌷
+    </p>
+
+    <p>
+      Thank you for being more than just a project mentor.
+      Your guidance, patience, and constant encouragement have
+      helped us not only improve our project, but also learn how
+      to approach problems with more confidence and clarity.
+    </p>
+
+    <p>
+      The way you pushed us to think, improve, and believe in our
+      ideas is something we’ll genuinely remember. Thank you for
+      always being there to guide us whenever we needed it. 💫
+    </p>
+
+    <p>
+      Wishing you a very Happy Teachers’ Day, Ma’am! ❤️
+    </p>
+  `,
+
+
+  /* --------------------------------------------------------
+     RITA MA'AM
+  -------------------------------------------------------- */
+
+  rita: `
+    <p>
+      Happy Teachers’ Day, Rita Ma’am! 🌷
+    </p>
+
+    <p>
+      Thank you for always being there in my TSEC journey.
+    </p>
+
+    <p>
+      From Sem 1, teaching BEEE and solving complex circuit
+      questions, to Sem 2, where we designed logic circuits,
+      and finally Sem 3, where we are studying about
+      computers — each semester is a blast with you.
+    </p>
+
+    <p>
+      Thank you always for giving me full marks in assignment
+      submissions 😊
+    </p>
+  `,
+
+
+  /* --------------------------------------------------------
+     APARNA MA'AM
+  -------------------------------------------------------- */
+
+  aparna: `
+    <p>
+      Happy Teachers’ Day, Aparna Ma’am! 🌷
+    </p>
+
+    <p>
+      From teaching us complex numbers and the basics,
+      to changing things up with pure integrals in the
+      second semester, and now integrals again — it's like
+      we're on a roller coaster ride! 😄
+    </p>
+
+    <p>
+      Thank you for always teaching us each and every topic
+      thoroughly and making sure we truly understand what
+      we're learning.
+    </p>
+
+    <p>
+      Wishing you a very Happy Teachers’ Day, Ma’am! ❤️
+    </p>
+  `,
+
+
+  /* --------------------------------------------------------
+     VIGNESH SHAH SIR
+  -------------------------------------------------------- */
+
+  vignesh: `
+    <p>
+      Happy Teachers’ Day, Vignesh Shah Sir! 🌟
+    </p>
+
+    <p>
+      From the mind-bending world of Quantum Physics in Sem 1
+      to the practical world of Measurement & Sensors in Sem 2,
+      you’ve made physics more than just a subject. Your way of
+      explaining concepts has made many of them genuinely
+      memorable and changed the way we look at the science behind
+      the technology around us.
+    </p>
+
+    <p>
+      Thank you for making even the toughest concepts feel
+      understandable and interesting. Your teaching will
+      definitely stay with us beyond the classroom. 🙌
+    </p>
+
+    <p>
+      Wishing you a very Happy Teachers’ Day, Sir! ✨
+    </p>
+  `,
+
+
+  /* --------------------------------------------------------
+     NILAM MA'AM
+  -------------------------------------------------------- */
+
+  nilam: `
+    <p>
+      Dear DLLE Coordinator Ma'am,
+    </p>
+
+    <p>
+      DLLE was and is the first ever club/committee I've
+      joined, and it has given me so many opportunities,
+      experiences, and memories that I will always cherish.
+    </p>
+
+    <p>
+      Working with you since my first semester has always
+      been a wonderful experience. Thank you for always
+      guiding me, supporting me, and giving me the opportunity
+      to learn and grow through DLLE.
+    </p>
+
+    <p>
+      I'm truly grateful for everything you've done for me
+      and for making my journey with DLLE so memorable. ❤️
+    </p>
+
+    <p>
+      Wishing you a very Happy Teachers’ Day! 🌸
+    </p>
+  `
+};
+
+
+/* ============================================================
+   DEFAULT MESSAGE
+============================================================ */
+
+const defaultMessage = `
+  <p>
+    Thank you for your patience, guidance, and the knowledge
+    you've shared with us.
+  </p>
+
+  <p>
+    The lessons you teach don't end when the class does —
+    they stay with us long after.
+  </p>
+`;
+
+
+/* ============================================================
+   SHOW SCREEN
+============================================================ */
+
+function showScreen(screenToShow) {
+
+  const screens = [
+    openingScreen,
+    nameScreen,
+    greetingScreen
+  ];
+
+  screens.forEach(screen => {
+
+    if (!screen) return;
+
+    if (screen === screenToShow) {
+
+      /* Make target visible immediately */
+      screen.hidden = false;
+
+      screen.classList.remove("is-leaving");
+
+      /* Force browser to recognize the new state */
+      void screen.offsetWidth;
+
+      requestAnimationFrame(() => {
+        screen.classList.add("is-active");
+      });
+
+    } else {
+
+      screen.classList.remove("is-active");
+      screen.classList.add("is-leaving");
+
+      setTimeout(() => {
+
+        if (!screen.classList.contains("is-active")) {
+          screen.hidden = true;
+          screen.classList.remove("is-leaving");
+        }
+
+      }, 700);
+    }
+  });
 }
 
 
-/* ==========================================================================
-   Reset
-   ========================================================================== */
+/* ============================================================
+   BEGIN BUTTON
+============================================================ */
 
-* {
-  box-sizing: border-box;
-}
+if (beginBtn) {
 
-html,
-body {
-  width: 100%;
-  min-height: 100%;
-  margin: 0;
-}
+  beginBtn.addEventListener("click", function () {
 
-html {
-  background: var(--paper);
-}
+    console.log("BEGIN BUTTON PRESSED");
 
-body {
-  min-height: 100dvh;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
+    showScreen(nameScreen);
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    setTimeout(() => {
 
-  overflow-x: hidden;
+      if (teacherNameInput) {
+        teacherNameInput.focus();
+      }
 
-  /* Helps prevent accidental browser gesture behavior */
-  touch-action: manipulation;
-}
+    }, 700);
 
-h1,
-h2,
-p {
-  margin: 0;
-}
+  });
 
-button,
-input {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-input {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button:focus {
-  outline: none;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
 }
 
 
-/* ==========================================================================
-   Background
-   ========================================================================== */
+/* ============================================================
+   NAME FORM
+============================================================ */
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
+if (nameForm) {
 
-  pointer-events: none;
+  nameForm.addEventListener("submit", function (event) {
 
-  z-index: 0;
+    event.preventDefault();
 
-  background-image:
-    radial-gradient(
-      circle at 20% 15%,
-      rgba(192, 138, 59, 0.06),
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 85% 80%,
-      rgba(185, 106, 94, 0.07),
-      transparent 50%
-    );
+    const enteredName = teacherNameInput.value.trim();
+
+
+    /* --------------------------------------------------------
+       VALIDATE
+    -------------------------------------------------------- */
+
+    if (!enteredName) {
+
+      nameError.hidden = false;
+
+      teacherNameInput.classList.add("input-error");
+
+      teacherNameInput.focus();
+
+      return;
+    }
+
+
+    /* --------------------------------------------------------
+       REMOVE ERROR
+    -------------------------------------------------------- */
+
+    nameError.hidden = true;
+
+    teacherNameInput.classList.remove("input-error");
+
+
+    /* --------------------------------------------------------
+       NORMALIZE NAME
+    -------------------------------------------------------- */
+
+    const normalizedName = enteredName
+      .toLowerCase()
+      .replace(/\s+/g, " ")
+      .trim();
+
+
+    /* --------------------------------------------------------
+       FIND PERSONALIZED MESSAGE
+    -------------------------------------------------------- */
+
+    let selectedMessage = defaultMessage;
+
+
+    if (
+      normalizedName === "rita" ||
+      normalizedName === "rita ma'am" ||
+      normalizedName === "rita mam"
+    ) {
+
+      selectedMessage = teacherMessages.rita;
+
+    } else if (
+      normalizedName === "aparna" ||
+      normalizedName === "aparna ma'am" ||
+      normalizedName === "aparna mam"
+    ) {
+
+      selectedMessage = teacherMessages.aparna;
+
+    } else if (
+      normalizedName === "nilam" ||
+      normalizedName === "nilam ma'am" ||
+      normalizedName === "nilam mam"
+    ) {
+
+      selectedMessage = teacherMessages.nilam;
+
+    } else if (
+      normalizedName === "vignesh" ||
+      normalizedName === "vignesh shah" ||
+      normalizedName === "vignesh sir" ||
+      normalizedName === "vignesh shah sir"
+    ) {
+
+      selectedMessage = teacherMessages.vignesh;
+
+    } else if (
+      normalizedName === "saumya" ||
+      normalizedName === "saumya ma'am" ||
+      normalizedName === "saumya mam" ||
+      normalizedName === "dr. saumya" ||
+      normalizedName === "dr saumya"
+    ) {
+
+      selectedMessage = teacherMessages.saumya;
+
+    } else if (
+      normalizedName === "nalini" ||
+      normalizedName === "nalini ma'am" ||
+      normalizedName === "nalini mam" ||
+      normalizedName === "nalini miss"
+    ) {
+
+      selectedMessage = teacherMessages.nalini;
+
+    } else if (
+      normalizedName === "nirmala" ||
+      normalizedName === "nirmala ma'am" ||
+      normalizedName === "nirmala mam" ||
+      normalizedName === "dr. nirmala" ||
+      normalizedName === "dr nirmala"
+    ) {
+
+      selectedMessage = teacherMessages.nirmala;
+    }
+
+
+    /* --------------------------------------------------------
+       SET NAME
+    -------------------------------------------------------- */
+
+    greetingName.textContent = enteredName;
+
+
+    /* --------------------------------------------------------
+       SET MESSAGE
+    -------------------------------------------------------- */
+
+    greetingBody.innerHTML = selectedMessage;
+
+
+    /* --------------------------------------------------------
+       SHOW GREETING
+    -------------------------------------------------------- */
+
+    showScreen(greetingScreen);
+
+
+    /* --------------------------------------------------------
+       GREETING ANIMATION
+    -------------------------------------------------------- */
+
+    greetingScreen.classList.remove("greeting-visible");
+
+    setTimeout(() => {
+      greetingScreen.classList.add("greeting-visible");
+    }, 150);
+
+  });
+
 }
 
 
-/* ==========================================================================
-   Layout shell
-   ========================================================================== */
+/* ============================================================
+   REPLAY
+============================================================ */
 
-#app {
-  position: relative;
-  z-index: 1;
+if (replayBtn) {
 
-  width: 100%;
-  min-height: 100dvh;
+  replayBtn.addEventListener("click", function () {
+
+    greetingScreen.classList.remove("greeting-visible");
+
+    teacherNameInput.value = "";
+
+    greetingName.textContent = "";
+
+    greetingBody.innerHTML = "";
+
+    nameError.hidden = true;
+
+    teacherNameInput.classList.remove("input-error");
+
+    showScreen(openingScreen);
+
+  });
+
 }
 
 
-/* ==========================================================================
-   Screens
-   ========================================================================== */
+/* ============================================================
+   ENTER KEY
+============================================================ */
 
-.screen {
-  width: 100%;
-  min-height: 100dvh;
+if (teacherNameInput) {
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  teacherNameInput.addEventListener("keydown", function (event) {
 
-  padding:
-    max(var(--space-4), env(safe-area-inset-top))
-    max(var(--space-2), env(safe-area-inset-right))
-    max(var(--space-4), env(safe-area-inset-bottom))
-    max(var(--space-2), env(safe-area-inset-left));
+    if (event.key === "Enter") {
 
-  position: absolute;
-  inset: 0;
+      event.preventDefault();
 
-  opacity: 0;
-  visibility: hidden;
+      if (nameForm) {
+        nameForm.requestSubmit();
+      }
 
-  transform: translateY(14px) scale(0.99);
+    }
 
-  transition:
-    opacity var(--dur-slow) var(--ease-soft),
-    transform var(--dur-slow) var(--ease-soft),
-    visibility 0s linear var(--dur-slow);
+  });
 
-  /*
-   * Inactive screens must never intercept touches.
-   */
-  pointer-events: none;
-
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.screen[hidden] {
-  display: none !important;
 }
 
 
-/*
- * Active screen
- */
+/* ============================================================
+   FLOATING PETALS
+============================================================ */
 
-.screen.is-active {
-  opacity: 1;
-  visibility: visible;
+function createPetal() {
 
-  transform: translateY(0) scale(1);
+  if (!petalField) return;
 
-  position: relative;
+  const petal = document.createElement("span");
 
-  z-index: 10;
+  petal.classList.add("petal");
 
-  pointer-events: auto;
+  const size = Math.random() * 8 + 6;
 
-  transition:
-    opacity var(--dur-slow) var(--ease-soft),
-    transform var(--dur-slow) var(--ease-soft),
-    visibility 0s linear 0s;
+  const startPosition = Math.random() * 100;
+
+  const duration = Math.random() * 8 + 7;
+
+  const delay = Math.random() * 5;
+
+  petal.style.width = `${size}px`;
+
+  petal.style.height = `${size * 1.4}px`;
+
+  petal.style.left = `${startPosition}%`;
+
+  petal.style.animationDuration = `${duration}s`;
+
+  petal.style.animationDelay = `${delay}s`;
+
+  petalField.appendChild(petal);
+
+  setTimeout(() => {
+    petal.remove();
+  }, (duration + delay) * 1000);
 }
 
 
-/*
- * Leaving screen
- */
+/* Initial petals */
 
-.screen.is-leaving {
-  opacity: 0;
-  visibility: hidden;
-
-  transform: translateY(-14px) scale(0.99);
-
-  pointer-events: none;
+for (let i = 0; i < 12; i++) {
+  createPetal();
 }
 
 
-/* ==========================================================================
-   Screen content
-   ========================================================================== */
+/* Continue creating petals */
 
-.screen__inner {
-  width: 100%;
-  max-width: 30rem;
+setInterval(createPetal, 900);
 
-  text-align: center;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* ============================================================
+   BACKGROUND MUSIC
+============================================================ */
 
-  gap: var(--space-3);
+let audioContext = null;
+let oscillator = null;
+let gainNode = null;
+let musicPlaying = false;
 
-  position: relative;
-  z-index: 20;
-}
 
-.screen__inner--greeting {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
+/* ============================================================
+   START MUSIC
+============================================================ */
 
+function startMusic() {
 
-/* ==========================================================================
-   Chalk corner
-   ========================================================================== */
+  if (musicPlaying) return;
 
-.chalk-corner {
-  position: absolute;
+  try {
 
-  top: 0;
-  left: 0;
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
 
-  width: 5.5rem;
-  height: 5.5rem;
+    if (!AudioContext) {
 
-  background: var(--chalk-green);
+      console.warn("Web Audio API is not supported.");
 
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    0 100%
-  );
+      return;
+    }
 
-  opacity: 0.9;
+    audioContext = new AudioContext();
 
-  pointer-events: none;
+    oscillator = audioContext.createOscillator();
 
-  z-index: 0;
-}
+    gainNode = audioContext.createGain();
 
-.chalk-corner::after {
-  content: "";
+    oscillator.type = "sine";
 
-  position: absolute;
+    oscillator.frequency.value = 261.63;
 
-  top: 0.9rem;
-  left: 0.9rem;
-
-  width: 2.1rem;
-  height: 1px;
-
-  background: rgba(246, 239, 226, 0.55);
-
-  transform: rotate(-45deg);
-
-  box-shadow:
-    0 6px 0 rgba(246, 239, 226, 0.35),
-    0 12px 0 rgba(246, 239, 226, 0.2);
-}
-
-.chalk-corner--bottom {
-  top: auto;
-  bottom: 0;
-
-  left: auto;
-  right: 0;
-
-  clip-path: polygon(
-    100% 100%,
-    100% 0,
-    0 100%
-  );
-}
-
-.chalk-corner--bottom::after {
-  top: auto;
-  left: auto;
-
-  bottom: 0.9rem;
-  right: 0.9rem;
-}
-
-
-/* ==========================================================================
-   Typography
-   ========================================================================== */
-
-.eyebrow-line {
-  font-family: var(--font-body);
-
-  font-size: 0.8rem;
-
-  letter-spacing: 0.02em;
-
-  color: var(--ink-soft);
-
-  font-style: italic;
-}
-
-.opening-heading {
-  font-family: var(--font-display);
-
-  font-weight: 500;
-
-  font-size: clamp(
-    1.9rem,
-    7vw,
-    2.6rem
-  );
-
-  line-height: 1.25;
-
-  color: var(--ink);
-}
-
-.opening-sub {
-  font-family: var(--font-display);
-
-  font-style: italic;
-  font-weight: 400;
-
-  font-size: clamp(
-    1.2rem,
-    5vw,
-    1.5rem
-  );
-
-  color: var(--rose);
-}
-
-.section-heading {
-  font-family: var(--font-display);
-
-  font-weight: 500;
-
-  font-size: clamp(
-    1.5rem,
-    6vw,
-    2rem
-  );
-
-  line-height: 1.3;
-}
-
-.greeting-heading {
-  font-family: var(--font-display);
-
-  font-weight: 500;
-
-  font-size: clamp(
-    1.7rem,
-    7vw,
-    2.4rem
-  );
-
-  line-height: 1.3;
-
-  color: var(--ink);
-}
-
-.greeting-name {
-  color: var(--rose);
-
-  font-style: italic;
-
-  white-space: pre-wrap;
-}
-
-.greeting-body p {
-  font-family: var(--font-body);
-
-  font-size: clamp(
-    1rem,
-    4vw,
-    1.1rem
-  );
-
-  line-height: 1.7;
-
-  color: var(--ink-soft);
-
-  max-width: 26rem;
-}
-
-.greeting-body p + p {
-  margin-top: var(--space-2);
-}
-
-.signature {
-  font-family: var(--font-display);
-
-  font-style: italic;
-
-  font-size: 1.05rem;
-
-  color: var(--ink);
-
-  line-height: 1.6;
-}
-
-.signature span {
-  color: var(--rose);
-}
-
-
-/* ==========================================================================
-   Reveal animations
-   ========================================================================== */
-
-.reveal-word {
-  display: inline-block;
-
-  opacity: 0;
-
-  transform: translateY(0.4em);
-}
-
-.reveal-word.is-in {
-  animation:
-    word-in var(--dur-med)
-    var(--ease-soft)
-    forwards;
-}
-
-@keyframes word-in {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ==========================================================================
-   Buttons
-   ========================================================================== */
-
-.btn {
-  border: none;
-
-  border-radius: 999px;
-
-  padding:
-    0.95rem
-    2.4rem;
-
-  font-family: var(--font-display);
-
-  font-style: italic;
-
-  font-size: 1.05rem;
-
-  letter-spacing: 0.01em;
-
-  transition:
-    transform 0.35s var(--ease-soft),
-    box-shadow 0.35s var(--ease-soft);
-
-  /*
-   * Important for mobile:
-   * makes the button explicitly touchable.
-   */
-  position: relative;
-  z-index: 50;
-
-  pointer-events: auto;
-
-  touch-action: manipulation;
-
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.btn--primary {
-  background:
-    linear-gradient(
-      135deg,
-      var(--gold),
-      var(--rose)
-    );
-
-  color: var(--paper);
-
-  box-shadow:
-    0 10px 24px -12px
-    rgba(185, 106, 94, 0.55);
-}
-
-.btn--primary:hover,
-.btn--primary:focus-visible {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 14px 28px -12px
-    rgba(185, 106, 94, 0.6);
-}
-
-.btn--primary:active {
-  transform: translateY(0);
-}
-
-.btn--ghost {
-  background: transparent;
-
-  color: var(--ink-soft);
-
-  border:
-    1px solid
-    rgba(58, 44, 34, 0.25);
-
-  padding:
-    0.7rem
-    1.6rem;
-
-  font-size: 0.95rem;
-}
-
-.btn--ghost:hover,
-.btn--ghost:focus-visible {
-  border-color: var(--rose);
-  color: var(--rose);
-}
-
-.btn:focus-visible {
-  outline:
-    2px solid
-    var(--gold);
-
-  outline-offset: 3px;
-}
-
-
-/* ==========================================================================
-   Name form
-   ========================================================================== */
-
-.name-form {
-  width: 100%;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  gap: var(--space-2);
-
-  position: relative;
-  z-index: 30;
-}
-
-.name-input {
-  width: 100%;
-  max-width: 22rem;
-
-  padding:
-    1rem
-    1.25rem;
-
-  border-radius: 1rem;
-
-  border:
-    1.5px solid
-    rgba(58, 44, 34, 0.18);
-
-  background: var(--paper-deep);
-
-  color: var(--ink);
-
-  font-family: var(--font-display);
-
-  font-size: 1.15rem;
-
-  text-align: center;
-
-  transition:
-    border-color 0.3s var(--ease-soft),
-    box-shadow 0.3s var(--ease-soft);
-
-  position: relative;
-  z-index: 30;
-
-  touch-action: manipulation;
-}
-
-.name-input::placeholder {
-  color: rgba(58, 44, 34, 0.4);
-
-  font-style: italic;
-}
-
-.name-input:focus {
-  outline: none;
-
-  border-color: var(--rose);
-
-  box-shadow:
-    0 0 0 4px
-    rgba(185, 106, 94, 0.12);
-}
-
-.field-error {
-  font-family: var(--font-body);
-
-  font-size: 0.9rem;
-
-  color: var(--rose);
-}
-
-.field-error[hidden] {
-  display: none;
-}
-
-
-/* ==========================================================================
-   Data reveal
-   ========================================================================== */
-
-[data-reveal] {
-  opacity: 0;
-
-  transform: translateY(10px);
-
-  animation:
-    fade-up var(--dur-med)
-    var(--ease-soft)
-    forwards;
-
-  animation-play-state: paused;
-}
-
-.screen.is-active [data-reveal] {
-  animation-play-state: running;
-}
-
-.screen.is-active [data-reveal]:nth-of-type(1) {
-  animation-delay: 0.05s;
-}
-
-.screen.is-active [data-reveal]:nth-of-type(2) {
-  animation-delay: 0.2s;
-}
-
-.screen.is-active [data-reveal]:nth-of-type(3) {
-  animation-delay: 0.4s;
-}
-
-.screen.is-active [data-reveal]:nth-of-type(4) {
-  animation-delay: 0.6s;
-}
-
-@keyframes fade-up {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-/* ==========================================================================
-   Petal field
-   ========================================================================== */
-
-.petal-field {
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 2;
-
-  pointer-events: none;
-
-  overflow: hidden;
-}
-
-.petal {
-  position: absolute;
-
-  top: -5%;
-
-  width: 14px;
-  height: 14px;
-
-  opacity: 0.55;
-
-  background:
-    radial-gradient(
-      circle at 30% 30%,
-      var(--rose),
-      transparent 70%
+    gainNode.gain.setValueAtTime(
+      0.0001,
+      audioContext.currentTime
     );
 
-  border-radius:
-    60% 40% 55% 45% /
-    55% 45% 55% 45%;
-
-  animation:
-    petal-fall linear infinite;
-
-  pointer-events: none;
-}
-
-.petal--gold {
-  background:
-    radial-gradient(
-      circle at 30% 30%,
-      var(--gold),
-      transparent 70%
-    );
-}
-
-@keyframes petal-fall {
-  0% {
-    transform:
-      translate3d(
-        0,
-        -10vh,
-        0
-      )
-      rotate(0deg);
-  }
-
-  100% {
-    transform:
-      translate3d(
-        var(--drift, 40px),
-        110vh,
-        0
-      )
-      rotate(220deg);
-  }
-}
-
-
-/* ==========================================================================
-   Music toggle
-   ========================================================================== */
-
-.music-toggle {
-  position: fixed;
-
-  top:
-    max(
-      1.1rem,
-      env(safe-area-inset-top)
+    gainNode.gain.exponentialRampToValueAtTime(
+      0.025,
+      audioContext.currentTime + 1
     );
 
-  right:
-    max(
-      1.1rem,
-      env(safe-area-inset-right)
+    oscillator.connect(gainNode);
+
+    gainNode.connect(audioContext.destination);
+
+    oscillator.start();
+
+    musicPlaying = true;
+
+    if (musicToggle) {
+      musicToggle.setAttribute(
+        "aria-pressed",
+        "true"
+      );
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Could not start audio:",
+      error
     );
 
-  z-index: 100;
-
-  width: 2.5rem;
-  height: 2.5rem;
-
-  border-radius: 50%;
-
-  border:
-    1px solid
-    rgba(58, 44, 34, 0.18);
-
-  background:
-    rgba(246, 239, 226, 0.85);
-
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  color: var(--ink-soft);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition:
-    color 0.3s var(--ease-soft),
-    border-color 0.3s var(--ease-soft);
-
-  pointer-events: auto;
-
-  touch-action: manipulation;
-
-  -webkit-tap-highlight-color: transparent;
-}
-
-.music-toggle[aria-pressed="true"] {
-  color: var(--rose);
-
-  border-color: var(--rose);
-}
-
-.music-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-
-  pointer-events: none;
+  }
 }
 
 
-/* ==========================================================================
-   Footer
-   ========================================================================== */
+/* ============================================================
+   STOP MUSIC
+============================================================ */
 
-.footer-note {
-  position: fixed;
+function stopMusic() {
 
-  bottom:
-    max(
-      0.9rem,
-      env(safe-area-inset-bottom)
+  if (!musicPlaying || !audioContext) {
+    return;
+  }
+
+  gainNode.gain.exponentialRampToValueAtTime(
+    0.0001,
+    audioContext.currentTime + 0.5
+  );
+
+  setTimeout(() => {
+
+    try {
+
+      if (oscillator) {
+        oscillator.stop();
+      }
+
+    } catch (error) {
+
+      console.log("Oscillator already stopped.");
+
+    }
+
+    if (audioContext) {
+      audioContext.close();
+    }
+
+    oscillator = null;
+    gainNode = null;
+    audioContext = null;
+    musicPlaying = false;
+
+  }, 600);
+
+  if (musicToggle) {
+    musicToggle.setAttribute(
+      "aria-pressed",
+      "false"
     );
-
-  left: 0;
-  right: 0;
-
-  z-index: 100;
-
-  text-align: center;
-
-  font-family: var(--font-body);
-
-  font-size: 0.72rem;
-
-  color:
-    rgba(58, 44, 34, 0.45);
-
-  pointer-events: none;
-
-  padding:
-    0 4rem;
-}
-
-
-/* ==========================================================================
-   Responsive
-   ========================================================================== */
-
-@media (min-width: 640px) {
-  .screen__inner {
-    max-width: 34rem;
   }
 }
 
 
-/* ==========================================================================
-   Small phones
-   ========================================================================== */
+/* ============================================================
+   MUSIC BUTTON
+============================================================ */
 
-@media (max-width: 380px) {
-  .screen {
-    padding:
-      4rem
-      1rem;
-  }
+if (musicToggle) {
 
-  .opening-heading {
-    font-size: 1.8rem;
-  }
+  musicToggle.addEventListener("click", function () {
 
-  .btn {
-    padding:
-      0.9rem
-      2rem;
-  }
+    if (musicPlaying) {
+      stopMusic();
+    } else {
+      startMusic();
+    }
 
-  .music-toggle {
-    width: 2.3rem;
-    height: 2.3rem;
-  }
+  });
+
 }
 
 
-/* ==========================================================================
-   Landscape phones
-   ========================================================================== */
+/* ============================================================
+   INITIAL STATE
+============================================================ */
 
-@media (
-  max-height: 500px
-) and (
-  orientation: landscape
-) {
-  .screen {
-    align-items: flex-start;
+if (openingScreen) {
+  openingScreen.hidden = false;
+  openingScreen.classList.remove("is-leaving");
+  openingScreen.classList.add("is-active");
+}
 
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+if (nameScreen) {
+  nameScreen.hidden = true;
+  nameScreen.classList.remove("is-active");
+}
 
-    overflow-y: auto;
-  }
-
-  .screen__inner {
-    gap: 1rem;
-  }
+if (greetingScreen) {
+  greetingScreen.hidden = true;
+  greetingScreen.classList.remove("is-active");
 }
 
 
-/* ==========================================================================
-   Reduced motion
-   ========================================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .petal-field {
-    display: none;
-  }
-
-  .screen,
-  [data-reveal],
-  .reveal-word,
-  .btn {
-    animation: none !important;
-
-    transition: none !important;
-
-    opacity: 1 !important;
-
-    transform: none !important;
-  }
-
-  .screen {
-    visibility: visible;
-  }
-}
-
-
-/* ==========================================================================
-   Mobile touch hardening
-   ========================================================================== */
-
-@media (hover: none) and (pointer: coarse) {
-
-  .btn {
-    min-height: 48px;
-    min-width: 120px;
-
-    touch-action: manipulation;
-  }
-
-  .btn--primary {
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  .screen__inner {
-    isolation: isolate;
-  }
-}
+console.log("Teachers' Day website initialized successfully.");
