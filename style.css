@@ -1,0 +1,492 @@
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+:root {
+  --paper: #f6efe2;
+  --paper-deep: #efe4d0;
+  --ink: #3a2c22;
+  --ink-soft: #6b5c4c;
+  --rose: #b96a5e;
+  --gold: #c08a3b;
+  --chalk-green: #445340;
+
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.75rem;
+  --space-4: 2.5rem;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-med: 0.7s;
+  --dur-slow: 1.1s;
+}
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+input {
+  font: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* subtle paper grain, tasteful rather than decorative */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 15%, rgba(192, 138, 59, 0.06), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(185, 106, 94, 0.07), transparent 50%);
+}
+
+/* ==========================================================================
+   Layout shell
+   ========================================================================== */
+#app {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+}
+
+.screen {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4) var(--space-2);
+  position: relative;
+}
+
+.screen[hidden] {
+  display: none;
+}
+
+.screen__inner {
+  width: 100%;
+  max-width: 30rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* ==========================================================================
+   Chalk corner motif — a quiet nod to the classroom, used once, not repeated
+   ========================================================================== */
+.chalk-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5.5rem;
+  height: 5.5rem;
+  background: var(--chalk-green);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+  opacity: 0.9;
+}
+
+.chalk-corner::after {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  width: 2.1rem;
+  height: 1px;
+  background: rgba(246, 239, 226, 0.55);
+  transform: rotate(-45deg);
+  box-shadow:
+    0 6px 0 rgba(246, 239, 226, 0.35),
+    0 12px 0 rgba(246, 239, 226, 0.2);
+}
+
+.chalk-corner--bottom {
+  top: auto;
+  bottom: 0;
+  left: auto;
+  right: 0;
+  clip-path: polygon(100% 100%, 100% 0, 0 100%);
+}
+
+.chalk-corner--bottom::after {
+  top: auto;
+  left: auto;
+  bottom: 0.9rem;
+  right: 0.9rem;
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+.eyebrow-line {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.opening-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 7vw, 2.6rem);
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.opening-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
+  color: var(--rose);
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  line-height: 1.3;
+}
+
+.greeting-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.7rem, 7vw, 2.4rem);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.greeting-name {
+  color: var(--rose);
+  font-style: italic;
+  white-space: pre-wrap;
+}
+
+.greeting-body p {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 4vw, 1.1rem);
+  line-height: 1.7;
+  color: var(--ink-soft);
+  max-width: 26rem;
+}
+
+.greeting-body p + p {
+  margin-top: var(--space-2);
+}
+
+.signature {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+.signature span {
+  color: var(--rose);
+}
+
+/* word reveal spans, populated via JS */
+.reveal-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+}
+
+.reveal-word.is-in {
+  animation: word-in var(--dur-med) var(--ease-soft) forwards;
+}
+
+@keyframes word-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  border: none;
+  border-radius: 999px;
+  padding: 0.95rem 2.4rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--gold), var(--rose));
+  color: var(--paper);
+  box-shadow: 0 10px 24px -12px rgba(185, 106, 94, 0.55);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -12px rgba(185, 106, 94, 0.6);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid rgba(58, 44, 34, 0.25);
+  padding: 0.7rem 1.6rem;
+  font-size: 0.95rem;
+}
+
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  border-color: var(--rose);
+  color: var(--rose);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Name form
+   ========================================================================== */
+.name-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.name-input {
+  width: 100%;
+  max-width: 22rem;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  border: 1.5px solid rgba(58, 44, 34, 0.18);
+  background: var(--paper-deep);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  text-align: center;
+  transition: border-color 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft);
+}
+
+.name-input::placeholder {
+  color: rgba(58, 44, 34, 0.4);
+  font-style: italic;
+}
+
+.name-input:focus {
+  outline: none;
+  border-color: var(--rose);
+  box-shadow: 0 0 0 4px rgba(185, 106, 94, 0.12);
+}
+
+.field-error {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--rose);
+}
+
+.field-error[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   Screen transitions
+   ========================================================================== */
+.screen {
+  opacity: 0;
+  transform: translateY(14px) scale(0.99);
+  transition: opacity var(--dur-slow) var(--ease-soft), transform var(--dur-slow) var(--ease-soft);
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.screen.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  position: relative;
+}
+
+.screen.is-leaving {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.99);
+}
+
+#app {
+  position: relative;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fade-up var(--dur-med) var(--ease-soft) forwards;
+  animation-play-state: paused;
+}
+
+.screen.is-active [data-reveal] {
+  animation-play-state: running;
+}
+
+.screen.is-active [data-reveal]:nth-of-type(1) { animation-delay: 0.05s; }
+.screen.is-active [data-reveal]:nth-of-type(2) { animation-delay: 0.2s; }
+.screen.is-active [data-reveal]:nth-of-type(3) { animation-delay: 0.4s; }
+.screen.is-active [data-reveal]:nth-of-type(4) { animation-delay: 0.6s; }
+
+@keyframes fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Petal field
+   ========================================================================== */
+.petal-field {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -5%;
+  width: 14px;
+  height: 14px;
+  opacity: 0.55;
+  background: radial-gradient(circle at 30% 30%, var(--rose), transparent 70%);
+  border-radius: 60% 40% 55% 45% / 55% 45% 55% 45%;
+  animation: petal-fall linear infinite;
+}
+
+.petal--gold {
+  background: radial-gradient(circle at 30% 30%, var(--gold), transparent 70%);
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(220deg);
+  }
+}
+
+/* ==========================================================================
+   Music toggle + footer
+   ========================================================================== */
+.music-toggle {
+  position: fixed;
+  top: max(1.1rem, env(safe-area-inset-top));
+  right: 1.1rem;
+  z-index: 5;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid rgba(58, 44, 34, 0.18);
+  background: rgba(246, 239, 226, 0.85);
+  backdrop-filter: blur(6px);
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s var(--ease-soft), border-color 0.3s var(--ease-soft);
+}
+
+.music-toggle[aria-pressed="true"] {
+  color: var(--rose);
+  border-color: var(--rose);
+}
+
+.music-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.footer-note {
+  position: fixed;
+  bottom: max(0.9rem, env(safe-area-inset-bottom));
+  left: 0;
+  right: 0;
+  z-index: 3;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: rgba(58, 44, 34, 0.45);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (min-width: 640px) {
+  .screen__inner {
+    max-width: 34rem;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .petal-field {
+    display: none;
+  }
+
+  .screen,
+  [data-reveal],
+  .reveal-word,
+  .btn {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

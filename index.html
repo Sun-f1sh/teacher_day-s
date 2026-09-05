@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Happy Teachers' Day 🌸</title>
+  <meta name="description" content="A small, heartfelt digital greeting made for a teacher who made a difference." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Happy Teachers' Day 🌸" />
+  <meta property="og:description" content="A little something for someone who makes a difference." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- decorative floating petals layer, purely visual -->
+  <div class="petal-field" aria-hidden="true" id="petalField"></div>
+
+  <main id="app">
+
+    <!-- SCREEN 1 — OPENING -->
+    <section class="screen screen--opening is-active" id="screen-opening" aria-labelledby="opening-heading">
+      <div class="chalk-corner" aria-hidden="true"></div>
+
+      <div class="screen__inner">
+        <p class="eyebrow-line" data-reveal>for someone who makes a difference</p>
+        <h1 class="opening-heading" id="opening-heading" data-reveal>
+          A little something<br />for someone who<br />makes a difference.
+        </h1>
+        <p class="opening-sub" data-reveal>Happy Teachers&rsquo; Day <span aria-hidden="true">🌸</span></p>
+
+        <button class="btn btn--primary" id="beginBtn" type="button" data-reveal>
+          <span>Begin</span>
+        </button>
+      </div>
+
+      <div class="chalk-corner chalk-corner--bottom" aria-hidden="true"></div>
+    </section>
+
+    <!-- SCREEN 2 — NAME INPUT -->
+    <section class="screen screen--name" id="screen-name" aria-labelledby="name-heading" hidden>
+      <div class="screen__inner">
+        <p class="eyebrow-line">before we begin</p>
+        <h2 class="section-heading" id="name-heading">May I know your name, Teacher?</h2>
+
+        <form id="nameForm" class="name-form" novalidate>
+          <label class="visually-hidden" for="teacherName">Your name</label>
+          <input type="text" id="teacherName" name="teacherName" class="name-input" placeholder="Enter your name"
+            autocomplete="name" maxlength="60" aria-describedby="nameError" />
+          <p class="field-error" id="nameError" role="alert" hidden>Please share your name &mdash; it makes this so much
+            more special.</p>
+
+          <button class="btn btn--primary" type="submit">
+            <span>Continue →</span>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- SCREEN 3 — GREETING -->
+    <section class="screen screen--greeting" id="screen-greeting" aria-labelledby="greeting-heading" hidden>
+      <div class="screen__inner screen__inner--greeting">
+        <h2 class="greeting-heading" id="greeting-heading">
+          <span id="greetingWord">Happy Teachers&rsquo; Day,</span>
+          <span id="greetingName" class="greeting-name"></span><span class="greeting-suffix"> Ma&rsquo;am</span>
+          <span aria-hidden="true">🌸</span>
+        </h2>
+
+        <div class="greeting-body" id="greetingBody">
+          <p>Thank you for your patience, guidance, and the knowledge you&rsquo;ve shared with us.</p>
+          <p>The lessons you teach don&rsquo;t end when the class does &mdash; they stay with us long after.</p>
+        </div>
+
+        <p class="signature" id="signature">
+          With gratitude,<br />
+          <span>Nirvit</span> <span aria-hidden="true">❤️</span>
+        </p>
+        <button class="btn btn--ghost" id="replayBtn" type="button">
+          <span>Replay ↻</span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false"
+    aria-label="Turn on gentle background tone">
+    <svg class="music-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 18V5l12-2v13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+        stroke-linejoin="round" />
+      <circle cx="6" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="1.6" />
+      <circle cx="18" cy="16" r="3" fill="none" stroke="currentColor" stroke-width="1.6" />
+    </svg>
+  </button>
+
+  <footer class="footer-note">Made with ❤️ for Teachers&rsquo; Day</footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
