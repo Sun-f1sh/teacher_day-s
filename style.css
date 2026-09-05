@@ -1,6 +1,11 @@
 /* ==========================================================================
+   TEACHERS' DAY WEBSITE — STYLE
+   ========================================================================== */
+
+/* ==========================================================================
    Tokens
    ========================================================================== */
+
 :root {
   --paper: #f6efe2;
   --paper-deep: #efe4d0;
@@ -19,41 +24,68 @@
   --space-4: 2.5rem;
 
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
   --dur-med: 0.7s;
   --dur-slow: 1.1s;
 }
 
+
 /* ==========================================================================
    Reset
    ========================================================================== */
+
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+html {
+  background: var(--paper);
 }
 
 body {
-  margin: 0;
+  min-height: 100dvh;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
+
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   overflow-x: hidden;
+
+  /* Helps prevent accidental browser gesture behavior */
+  touch-action: manipulation;
 }
 
-h1, h2, p {
+h1,
+h2,
+p {
   margin: 0;
 }
 
-button {
+button,
+input {
   font: inherit;
+}
+
+button {
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input {
-  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus {
+  outline: none;
 }
 
 .visually-hidden {
@@ -65,73 +97,198 @@ input {
   white-space: nowrap;
 }
 
-/* subtle paper grain, tasteful rather than decorative */
+
+/* ==========================================================================
+   Background
+   ========================================================================== */
+
 body::before {
   content: "";
   position: fixed;
   inset: 0;
+
   pointer-events: none;
+
   z-index: 0;
+
   background-image:
-    radial-gradient(circle at 20% 15%, rgba(192, 138, 59, 0.06), transparent 45%),
-    radial-gradient(circle at 85% 80%, rgba(185, 106, 94, 0.07), transparent 50%);
+    radial-gradient(
+      circle at 20% 15%,
+      rgba(192, 138, 59, 0.06),
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(185, 106, 94, 0.07),
+      transparent 50%
+    );
 }
+
 
 /* ==========================================================================
    Layout shell
    ========================================================================== */
+
 #app {
   position: relative;
   z-index: 1;
+
+  width: 100%;
   min-height: 100dvh;
 }
 
+
+/* ==========================================================================
+   Screens
+   ========================================================================== */
+
 .screen {
+  width: 100%;
   min-height: 100dvh;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-4) var(--space-2);
-  position: relative;
+
+  padding:
+    max(var(--space-4), env(safe-area-inset-top))
+    max(var(--space-2), env(safe-area-inset-right))
+    max(var(--space-4), env(safe-area-inset-bottom))
+    max(var(--space-2), env(safe-area-inset-left));
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(14px) scale(0.99);
+
+  transition:
+    opacity var(--dur-slow) var(--ease-soft),
+    transform var(--dur-slow) var(--ease-soft),
+    visibility 0s linear var(--dur-slow);
+
+  /*
+   * Inactive screens must never intercept touches.
+   */
+  pointer-events: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .screen[hidden] {
-  display: none;
+  display: none !important;
 }
+
+
+/*
+ * Active screen
+ */
+
+.screen.is-active {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0) scale(1);
+
+  position: relative;
+
+  z-index: 10;
+
+  pointer-events: auto;
+
+  transition:
+    opacity var(--dur-slow) var(--ease-soft),
+    transform var(--dur-slow) var(--ease-soft),
+    visibility 0s linear 0s;
+}
+
+
+/*
+ * Leaving screen
+ */
+
+.screen.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(-14px) scale(0.99);
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================================
+   Screen content
+   ========================================================================== */
 
 .screen__inner {
   width: 100%;
   max-width: 30rem;
+
   text-align: center;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: var(--space-3);
+
+  position: relative;
+  z-index: 20;
 }
 
+.screen__inner--greeting {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+
 /* ==========================================================================
-   Chalk corner motif — a quiet nod to the classroom, used once, not repeated
+   Chalk corner
    ========================================================================== */
+
 .chalk-corner {
   position: absolute;
+
   top: 0;
   left: 0;
+
   width: 5.5rem;
   height: 5.5rem;
+
   background: var(--chalk-green);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    0 100%
+  );
+
   opacity: 0.9;
+
+  pointer-events: none;
+
+  z-index: 0;
 }
 
 .chalk-corner::after {
   content: "";
+
   position: absolute;
+
   top: 0.9rem;
   left: 0.9rem;
+
   width: 2.1rem;
   height: 1px;
+
   background: rgba(246, 239, 226, 0.55);
+
   transform: rotate(-45deg);
+
   box-shadow:
     0 6px 0 rgba(246, 239, 226, 0.35),
     0 12px 0 rgba(246, 239, 226, 0.2);
@@ -140,71 +297,124 @@ body::before {
 .chalk-corner--bottom {
   top: auto;
   bottom: 0;
+
   left: auto;
   right: 0;
-  clip-path: polygon(100% 100%, 100% 0, 0 100%);
+
+  clip-path: polygon(
+    100% 100%,
+    100% 0,
+    0 100%
+  );
 }
 
 .chalk-corner--bottom::after {
   top: auto;
   left: auto;
+
   bottom: 0.9rem;
   right: 0.9rem;
 }
 
+
 /* ==========================================================================
    Typography
    ========================================================================== */
+
 .eyebrow-line {
   font-family: var(--font-body);
+
   font-size: 0.8rem;
+
   letter-spacing: 0.02em;
+
   color: var(--ink-soft);
+
   font-style: italic;
 }
 
 .opening-heading {
   font-family: var(--font-display);
+
   font-weight: 500;
-  font-size: clamp(1.9rem, 7vw, 2.6rem);
+
+  font-size: clamp(
+    1.9rem,
+    7vw,
+    2.6rem
+  );
+
   line-height: 1.25;
+
   color: var(--ink);
 }
 
 .opening-sub {
   font-family: var(--font-display);
+
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.2rem, 5vw, 1.5rem);
+
+  font-size: clamp(
+    1.2rem,
+    5vw,
+    1.5rem
+  );
+
   color: var(--rose);
 }
 
 .section-heading {
   font-family: var(--font-display);
+
   font-weight: 500;
-  font-size: clamp(1.5rem, 6vw, 2rem);
+
+  font-size: clamp(
+    1.5rem,
+    6vw,
+    2rem
+  );
+
   line-height: 1.3;
 }
 
 .greeting-heading {
   font-family: var(--font-display);
+
   font-weight: 500;
-  font-size: clamp(1.7rem, 7vw, 2.4rem);
+
+  font-size: clamp(
+    1.7rem,
+    7vw,
+    2.4rem
+  );
+
   line-height: 1.3;
+
   color: var(--ink);
 }
 
 .greeting-name {
   color: var(--rose);
+
   font-style: italic;
+
   white-space: pre-wrap;
 }
 
 .greeting-body p {
   font-family: var(--font-body);
-  font-size: clamp(1rem, 4vw, 1.1rem);
+
+  font-size: clamp(
+    1rem,
+    4vw,
+    1.1rem
+  );
+
   line-height: 1.7;
+
   color: var(--ink-soft);
+
   max-width: 26rem;
 }
 
@@ -214,9 +424,13 @@ body::before {
 
 .signature {
   font-family: var(--font-display);
+
   font-style: italic;
+
   font-size: 1.05rem;
+
   color: var(--ink);
+
   line-height: 1.6;
 }
 
@@ -224,15 +438,24 @@ body::before {
   color: var(--rose);
 }
 
-/* word reveal spans, populated via JS */
+
+/* ==========================================================================
+   Reveal animations
+   ========================================================================== */
+
 .reveal-word {
   display: inline-block;
+
   opacity: 0;
+
   transform: translateY(0.4em);
 }
 
 .reveal-word.is-in {
-  animation: word-in var(--dur-med) var(--ease-soft) forwards;
+  animation:
+    word-in var(--dur-med)
+    var(--ease-soft)
+    forwards;
 }
 
 @keyframes word-in {
@@ -242,37 +465,88 @@ body::before {
   }
 }
 
+
 /* ==========================================================================
    Buttons
    ========================================================================== */
+
 .btn {
   border: none;
+
   border-radius: 999px;
-  padding: 0.95rem 2.4rem;
+
+  padding:
+    0.95rem
+    2.4rem;
+
   font-family: var(--font-display);
+
   font-style: italic;
+
   font-size: 1.05rem;
+
   letter-spacing: 0.01em;
-  transition: transform 0.35s var(--ease-soft), box-shadow 0.35s var(--ease-soft);
+
+  transition:
+    transform 0.35s var(--ease-soft),
+    box-shadow 0.35s var(--ease-soft);
+
+  /*
+   * Important for mobile:
+   * makes the button explicitly touchable.
+   */
+  position: relative;
+  z-index: 50;
+
+  pointer-events: auto;
+
+  touch-action: manipulation;
+
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--gold), var(--rose));
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      var(--rose)
+    );
+
   color: var(--paper);
-  box-shadow: 0 10px 24px -12px rgba(185, 106, 94, 0.55);
+
+  box-shadow:
+    0 10px 24px -12px
+    rgba(185, 106, 94, 0.55);
 }
 
 .btn--primary:hover,
 .btn--primary:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 14px 28px -12px rgba(185, 106, 94, 0.6);
+
+  box-shadow:
+    0 14px 28px -12px
+    rgba(185, 106, 94, 0.6);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
 }
 
 .btn--ghost {
   background: transparent;
+
   color: var(--ink-soft);
-  border: 1px solid rgba(58, 44, 34, 0.25);
-  padding: 0.7rem 1.6rem;
+
+  border:
+    1px solid
+    rgba(58, 44, 34, 0.25);
+
+  padding:
+    0.7rem
+    1.6rem;
+
   font-size: 0.95rem;
 }
 
@@ -283,49 +557,86 @@ body::before {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--gold);
+  outline:
+    2px solid
+    var(--gold);
+
   outline-offset: 3px;
 }
+
 
 /* ==========================================================================
    Name form
    ========================================================================== */
+
 .name-form {
   width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   gap: var(--space-2);
+
+  position: relative;
+  z-index: 30;
 }
 
 .name-input {
   width: 100%;
   max-width: 22rem;
-  padding: 1rem 1.25rem;
+
+  padding:
+    1rem
+    1.25rem;
+
   border-radius: 1rem;
-  border: 1.5px solid rgba(58, 44, 34, 0.18);
+
+  border:
+    1.5px solid
+    rgba(58, 44, 34, 0.18);
+
   background: var(--paper-deep);
+
   color: var(--ink);
+
   font-family: var(--font-display);
+
   font-size: 1.15rem;
+
   text-align: center;
-  transition: border-color 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft);
+
+  transition:
+    border-color 0.3s var(--ease-soft),
+    box-shadow 0.3s var(--ease-soft);
+
+  position: relative;
+  z-index: 30;
+
+  touch-action: manipulation;
 }
 
 .name-input::placeholder {
   color: rgba(58, 44, 34, 0.4);
+
   font-style: italic;
 }
 
 .name-input:focus {
   outline: none;
+
   border-color: var(--rose);
-  box-shadow: 0 0 0 4px rgba(185, 106, 94, 0.12);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(185, 106, 94, 0.12);
 }
 
 .field-error {
   font-family: var(--font-body);
+
   font-size: 0.9rem;
+
   color: var(--rose);
 }
 
@@ -333,128 +644,295 @@ body::before {
   display: none;
 }
 
+
 /* ==========================================================================
-   Screen transitions
+   Data reveal
    ========================================================================== */
 
-.screen {
+[data-reveal] {
   opacity: 0;
-  transform: translateY(14px) scale(0.99);
-  transition:
-    opacity var(--dur-slow) var(--ease-soft),
-    transform var(--dur-slow) var(--ease-soft);
 
-  position: absolute;
-  inset: 0;
+  transform: translateY(10px);
 
-  /* Don't let inactive screens intercept touches */
-  visibility: hidden;
+  animation:
+    fade-up var(--dur-med)
+    var(--ease-soft)
+    forwards;
+
+  animation-play-state: paused;
 }
 
-.screen.is-active {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  position: relative;
-  visibility: visible;
-  z-index: 1;
+.screen.is-active [data-reveal] {
+  animation-play-state: running;
 }
 
-.screen.is-leaving {
-  opacity: 0;
-  transform: translateY(-14px) scale(0.99);
-  visibility: hidden;
+.screen.is-active [data-reveal]:nth-of-type(1) {
+  animation-delay: 0.05s;
 }
+
+.screen.is-active [data-reveal]:nth-of-type(2) {
+  animation-delay: 0.2s;
+}
+
+.screen.is-active [data-reveal]:nth-of-type(3) {
+  animation-delay: 0.4s;
+}
+
+.screen.is-active [data-reveal]:nth-of-type(4) {
+  animation-delay: 0.6s;
+}
+
+@keyframes fade-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 /* ==========================================================================
    Petal field
    ========================================================================== */
+
 .petal-field {
   position: fixed;
+
   inset: 0;
+
   z-index: 2;
+
   pointer-events: none;
+
   overflow: hidden;
 }
 
 .petal {
   position: absolute;
+
   top: -5%;
+
   width: 14px;
   height: 14px;
+
   opacity: 0.55;
-  background: radial-gradient(circle at 30% 30%, var(--rose), transparent 70%);
-  border-radius: 60% 40% 55% 45% / 55% 45% 55% 45%;
-  animation: petal-fall linear infinite;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      var(--rose),
+      transparent 70%
+    );
+
+  border-radius:
+    60% 40% 55% 45% /
+    55% 45% 55% 45%;
+
+  animation:
+    petal-fall linear infinite;
+
+  pointer-events: none;
 }
 
 .petal--gold {
-  background: radial-gradient(circle at 30% 30%, var(--gold), transparent 70%);
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      var(--gold),
+      transparent 70%
+    );
 }
 
 @keyframes petal-fall {
   0% {
-    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    transform:
+      translate3d(
+        0,
+        -10vh,
+        0
+      )
+      rotate(0deg);
   }
+
   100% {
-    transform: translate3d(var(--drift, 40px), 110vh, 0) rotate(220deg);
+    transform:
+      translate3d(
+        var(--drift, 40px),
+        110vh,
+        0
+      )
+      rotate(220deg);
   }
 }
 
+
 /* ==========================================================================
-   Music toggle + footer
+   Music toggle
    ========================================================================== */
+
 .music-toggle {
   position: fixed;
-  top: max(1.1rem, env(safe-area-inset-top));
-  right: 1.1rem;
-  z-index: 5;
+
+  top:
+    max(
+      1.1rem,
+      env(safe-area-inset-top)
+    );
+
+  right:
+    max(
+      1.1rem,
+      env(safe-area-inset-right)
+    );
+
+  z-index: 100;
+
   width: 2.5rem;
   height: 2.5rem;
+
   border-radius: 50%;
-  border: 1px solid rgba(58, 44, 34, 0.18);
-  background: rgba(246, 239, 226, 0.85);
+
+  border:
+    1px solid
+    rgba(58, 44, 34, 0.18);
+
+  background:
+    rgba(246, 239, 226, 0.85);
+
   backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
   color: var(--ink-soft);
+
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.3s var(--ease-soft), border-color 0.3s var(--ease-soft);
+
+  transition:
+    color 0.3s var(--ease-soft),
+    border-color 0.3s var(--ease-soft);
+
+  pointer-events: auto;
+
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .music-toggle[aria-pressed="true"] {
   color: var(--rose);
+
   border-color: var(--rose);
 }
 
 .music-icon {
   width: 1.1rem;
   height: 1.1rem;
+
+  pointer-events: none;
 }
+
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 
 .footer-note {
   position: fixed;
-  bottom: max(0.9rem, env(safe-area-inset-bottom));
+
+  bottom:
+    max(
+      0.9rem,
+      env(safe-area-inset-bottom)
+    );
+
   left: 0;
   right: 0;
-  z-index: 3;
+
+  z-index: 100;
+
   text-align: center;
+
   font-family: var(--font-body);
+
   font-size: 0.72rem;
-  color: rgba(58, 44, 34, 0.45);
+
+  color:
+    rgba(58, 44, 34, 0.45);
+
   pointer-events: none;
+
+  padding:
+    0 4rem;
 }
+
 
 /* ==========================================================================
    Responsive
    ========================================================================== */
+
 @media (min-width: 640px) {
   .screen__inner {
     max-width: 34rem;
   }
 }
 
+
+/* ==========================================================================
+   Small phones
+   ========================================================================== */
+
+@media (max-width: 380px) {
+  .screen {
+    padding:
+      4rem
+      1rem;
+  }
+
+  .opening-heading {
+    font-size: 1.8rem;
+  }
+
+  .btn {
+    padding:
+      0.9rem
+      2rem;
+  }
+
+  .music-toggle {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+}
+
+
+/* ==========================================================================
+   Landscape phones
+   ========================================================================== */
+
+@media (
+  max-height: 500px
+) and (
+  orientation: landscape
+) {
+  .screen {
+    align-items: flex-start;
+
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+
+    overflow-y: auto;
+  }
+
+  .screen__inner {
+    gap: 1rem;
+  }
+}
+
+
 /* ==========================================================================
    Reduced motion
    ========================================================================== */
+
 @media (prefers-reduced-motion: reduce) {
   .petal-field {
     display: none;
@@ -465,8 +943,39 @@ body::before {
   .reveal-word,
   .btn {
     animation: none !important;
+
     transition: none !important;
+
     opacity: 1 !important;
+
     transform: none !important;
+  }
+
+  .screen {
+    visibility: visible;
+  }
+}
+
+
+/* ==========================================================================
+   Mobile touch hardening
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+  .btn {
+    min-height: 48px;
+    min-width: 120px;
+
+    touch-action: manipulation;
+  }
+
+  .btn--primary {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .screen__inner {
+    isolation: isolate;
   }
 }
