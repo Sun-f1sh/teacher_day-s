@@ -34,7 +34,56 @@ const musicToggle = document.getElementById("musicToggle");
 ============================================================ */
 
 const teacherMessages = {
+    /* --------------------------------------------------------
+       NIRMALA MA'AM
+    -------------------------------------------------------- */
 
+    nirmala: `
+        <p>
+            Happy Teachers’ Day, Nirmala Ma’am! 🌷✨
+        </p>
+
+        <p>
+            President of IIC, Dean of the Research & Development
+            Cell, AI Club Coordinator, E-Cell Coordinator, NSS
+            Faculty… and somehow still one of the most approachable
+            and friendly people in college! 😄
+        </p>
+
+        <p>
+            Despite being the HOD of the AI & ML Department and
+            handling so many responsibilities, you’ve always made
+            it incredibly easy for us to walk in, talk to you,
+            share ideas, ask for advice, or sometimes just have a
+            good conversation.
+        </p>
+
+        <p>
+            What makes it even more special are those post-college-
+            hour chats and all the times you’ve generously let us
+            use your cabin for our committee work. That little
+            space has somehow become one of our favourite places
+            to plan, discuss, create, and occasionally panic before
+            deadlines! 😂
+        </p>
+
+        <p>
+            Thank you for trusting us, encouraging our ideas, and
+            always making us feel heard. Your support has played a
+            much bigger role in our college journey than you
+            probably realise.
+        </p>
+
+        <p>
+            Wishing you a very Happy Teachers’ Day, Ma’am! ❤️
+        </p>
+
+        <p>
+            Thank you for being not just a mentor, but someone we
+            can genuinely look up to and talk to. 🌸
+        </p>
+    `,
+   
   nalini: `
     <p>
         Happy Teachers’ Day, Nalini Miss! ❤️🌷
@@ -313,55 +362,76 @@ if (nameForm) {
     -------------------------------------------------------- */
 
     let selectedMessage = defaultMessage;
+     
+    /* --------------------------------------------------------
+   FIND PERSONALIZED MESSAGE
+-------------------------------------------------------- */
 
+let selectedMessage = defaultMessage;
 
-    if (
-      normalizedName === "rita" ||
-      normalizedName === "rita ma'am" ||
-      normalizedName === "rita mam"
-    ) {
-      selectedMessage = teacherMessages.rita;
+if (
+  normalizedName === "rita" ||
+  normalizedName === "rita ma'am" ||
+  normalizedName === "rita mam"
+) {
 
-    } else if (
-      normalizedName === "aparna" ||
-      normalizedName === "aparna ma'am" ||
-      normalizedName === "aparna mam"
-    ) {
-      selectedMessage = teacherMessages.aparna;
+  selectedMessage = teacherMessages.rita;
 
-    } else if (
-      normalizedName === "nilam" ||
-      normalizedName === "nilam ma'am" ||
-      normalizedName === "nilam mam"
-    ) {
-      selectedMessage = teacherMessages.nilam;
+} else if (
+  normalizedName === "aparna" ||
+  normalizedName === "aparna ma'am" ||
+  normalizedName === "aparna mam"
+) {
 
-    } else if (
-      normalizedName === "vignesh" ||
-      normalizedName === "vignesh shah" ||
-      normalizedName === "vignesh sir" ||
-      normalizedName === "vignesh shah sir"
-    ) {
-      selectedMessage = teacherMessages.vignesh;
+  selectedMessage = teacherMessages.aparna;
 
-    } else if (
-      normalizedName === "saumya" ||
-      normalizedName === "saumya ma'am" ||
-      normalizedName === "saumya mam" ||
-      normalizedName === "dr. saumya" ||
-      normalizedName === "dr saumya"
-    ) {
-      selectedMessage = teacherMessages.saumya;
+} else if (
+  normalizedName === "nilam" ||
+  normalizedName === "nilam ma'am" ||
+  normalizedName === "nilam mam"
+) {
 
-    } else if (
-      normalizedName === "nalini" ||
-      normalizedName === "nalini ma'am" ||
-      normalizedName === "nalini mam" ||
-      normalizedName === "nalini miss"
-    ) {
-      selectedMessage = teacherMessages.nalini;
-    }
+  selectedMessage = teacherMessages.nilam;
 
+} else if (
+  normalizedName === "vignesh" ||
+  normalizedName === "vignesh shah" ||
+  normalizedName === "vignesh sir" ||
+  normalizedName === "vignesh shah sir"
+) {
+
+  selectedMessage = teacherMessages.vignesh;
+
+} else if (
+  normalizedName === "saumya" ||
+  normalizedName === "saumya ma'am" ||
+  normalizedName === "saumya mam" ||
+  normalizedName === "dr. saumya" ||
+  normalizedName === "dr saumya"
+) {
+
+  selectedMessage = teacherMessages.saumya;
+
+} else if (
+  normalizedName === "nalini" ||
+  normalizedName === "nalini ma'am" ||
+  normalizedName === "nalini mam" ||
+  normalizedName === "nalini miss"
+) {
+
+  selectedMessage = teacherMessages.nalini;
+
+} else if (
+  normalizedName === "nirmala" ||
+  normalizedName === "nirmala ma'am" ||
+  normalizedName === "nirmala mam" ||
+  normalizedName === "dr. nirmala" ||
+  normalizedName === "dr nirmala"
+) {
+
+  selectedMessage = teacherMessages.nirmala;
+
+}
 
     /* --------------------------------------------------------
        SHOW TEACHER NAME
