@@ -371,6 +371,7 @@ let selectedMessage = defaultMessage;
 
 if (
   normalizedName === "rita" ||
+  normalizedName === "Rita" ||
   normalizedName === "rita ma'am" ||
   normalizedName === "rita mam"
 ) {
@@ -379,6 +380,7 @@ if (
 
 } else if (
   normalizedName === "aparna" ||
+  normalizedName === "Aparna" ||
   normalizedName === "aparna ma'am" ||
   normalizedName === "aparna mam"
 ) {
@@ -387,6 +389,7 @@ if (
 
 } else if (
   normalizedName === "nilam" ||
+   normalizedName === "Nilam" ||
   normalizedName === "nilam ma'am" ||
   normalizedName === "nilam mam"
 ) {
@@ -395,6 +398,7 @@ if (
 
 } else if (
   normalizedName === "vignesh" ||
+   normalizedName === "Vignesh" ||
   normalizedName === "vignesh shah" ||
   normalizedName === "vignesh sir" ||
   normalizedName === "vignesh shah sir"
@@ -404,6 +408,7 @@ if (
 
 } else if (
   normalizedName === "saumya" ||
+  normalizedName === "Saumya" ||
   normalizedName === "saumya ma'am" ||
   normalizedName === "saumya mam" ||
   normalizedName === "dr. saumya" ||
@@ -414,6 +419,7 @@ if (
 
 } else if (
   normalizedName === "nalini" ||
+    normalizedName === "Nalini" ||
   normalizedName === "nalini ma'am" ||
   normalizedName === "nalini mam" ||
   normalizedName === "nalini miss"
@@ -423,6 +429,7 @@ if (
 
 } else if (
   normalizedName === "nirmala" ||
+   normalizedName === "Nirmala" ||
   normalizedName === "nirmala ma'am" ||
   normalizedName === "nirmala mam" ||
   normalizedName === "dr. nirmala" ||
